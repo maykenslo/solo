@@ -1,13 +1,13 @@
 services:
   - type: web
     name: deploiement-test
-    env: java
     plan: free
-    buildCommand:
+    env: docker # option recommandée si Java doit être correctement géré
+    buildCommand: |
       echo "JAVA_HOME=$JAVA_HOME"
       java -version
       javac -version
-     ./mvnw clean install
+      ./mvnw clean install
     startCommand: java -jar target/deploiement_test-0.0.1-SNAPSHOT.jar
     envVars:
       - key: JAVA_VERSION
@@ -18,4 +18,3 @@ services:
         fromGroup: groupforthefirsttest
       - key: DB_PASSWORD
         fromGroup: groupforthefirsttest
-
