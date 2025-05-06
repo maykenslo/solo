@@ -7,7 +7,7 @@ services:
     startCommand: java -jar target/deploiement_test-0.0.1-SNAPSHOT.jar
     envVars:
       - key: JAVA_VERSION
-      - value: 11
+        value: 11
       - key: DB_URL
         fromGroup: groupforthefirsttest
       - key: DB_USERNAME
