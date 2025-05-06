@@ -2,11 +2,16 @@ services:
   - type: web
     name: deploiement-test
     plan: free
-    env: docker # option recommandée si Java doit être correctement géré
+    env: java
     buildCommand: |
-      echo "JAVA_HOME=$JAVA_HOME"
-      java -version
-      javac -version
+      echo "====== Environnement Render ======"
+      printenv
+      echo "====== Vérification Java ======"
+      which java
+      java -version || echo "java non disponible"
+      echo "====== Vérification JAVA_HOME ======"
+      echo "$JAVA_HOME"
+      ./mvnw -v || echo "Échec mvnw -v"
       ./mvnw clean install
     startCommand: java -jar target/deploiement_test-0.0.1-SNAPSHOT.jar
     envVars:
