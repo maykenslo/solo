@@ -11,6 +11,8 @@ services:
     #   ./mvnw clean install
     # startCommand: java -jar target/deploiement_test-0.0.1-SNAPSHOT.jar
     envVars:
+      - key: PORT
+        value: "8080"
       - key: JAVA_VERSION
         value: 11
       - key: DB_URL
@@ -19,3 +21,4 @@ services:
         fromGroup: groupforthefirsttest
       - key: DB_PASSWORD
         fromGroup: groupforthefirsttest
+      
