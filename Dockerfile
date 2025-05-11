@@ -14,8 +14,8 @@ RUN chmod +x mvnw
 RUN ./mvnw clean install -DskipTests
 
 # Spécifie le port que l'application écoutera
-EXPOSE 8080
+# EXPOSE 8080
 
 # Démarre l'application
-CMD ["sh", "-c", "java -jar target/deploiement_test-0.0.1-SNAPSHOT.jar --server.port=${PORT} --server.address=0.0.0.0"]
+CMD ["sh", "-c", "java -jar target/deploiement_test-0.0.1-SNAPSHOT.jar --server.port=8080 --server.address=0.0.0.0"]
 
