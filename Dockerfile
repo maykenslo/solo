@@ -17,5 +17,5 @@ RUN ./mvnw clean install -DskipTests
 EXPOSE 8080
 
 # Démarre l'application
-CMD ["java", "-jar", "target/deploiement_test-0.0.1-SNAPSHOT.jar", "--server.port=${PORT}", "server.address=0.0.0.0"]
+CMD ["java", "-jar", "target/deploiement_test-0.0.1-SNAPSHOT.jar", "--server.port=${PORT}", "--server.address=0.0.0.0"]
 
