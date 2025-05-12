@@ -1,5 +1,5 @@
 # Utilise l'image officielle de Java 11 avec Maven
-FROM eclipse-temurin:11-jdk
+FROM eclipse-temurin:17-jdk
 
 # Crée un dossier de travail dans le conteneur
 WORKDIR /app
