@@ -1,23 +1,29 @@
-# Utilise l'image officielle de Java 11 avec Maven
-FROM eclipse-temurin:17-jdk
+# Étape 1 : Utilise une image avec Java 17
+FROM eclipse-temurin:17-jdk AS build
 
-# Crée un dossier de travail dans le conteneur
+# Crée un dossier de travail
 WORKDIR /app
 
-# Copie tous les fichiers dans le conteneur
+# Copie tout le code source dans le conteneur
 COPY . .
 
-# Donne les permissions d'exécution au wrapper Maven (si ce n'est pas déjà le cas)
+# Donne les permissions d'exécution à mvnw (important pour Linux)
 RUN chmod +x mvnw
 
-# Compile et construit le projet
-RUN ./mvnw clean install -DskipTests
+# Compile et construit l'application (skip tests pour le build rapide)
+RUN ./mvnw clean package -DskipTests
 
-# Spécifie le port que l'application écoutera
+# Étape 2 : Crée une image légère pour exécuter l'application
+FROM eclipse-temurin:17-jdk-alpine
+
+# Dossier de travail
+WORKDIR /app
+
+# Copie uniquement le jar généré depuis l'étape précédente
+COPY --from=build /app/target/deploiement_test-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose le port par défaut
 EXPOSE 8080
 
-# Démarre l'application
-# CMD sh -c 'java -jar target/deploiement_test-0.0.1-SNAPSHOT.jar --server.port=${PORT} --server.address=0.0.0.0'
-ENTRYPOINT ["java", "-jar", "target/deploiement_test-0.0.1-SNAPSHOT.jar"]
-
-
+# Commande pour démarrer l'application
+ENTRYPOINT ["java", "-jar", "app.jar"]
